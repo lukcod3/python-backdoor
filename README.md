@@ -4,11 +4,11 @@
 ### Description
 - <strong>BackdoorSender.py</strong>
   - The code for the attacker
-  - Server accepting connections and sending command
+  - Server is accepting connections and sending command
 
 - <strong>backdoor.py</strong>
   - The client / victim code
-  - Client connecting to the Server(<strong>!must be active!</strong>) and waiting for commands
+  - Client is connecting to the Server(<strong>!must be active!</strong>) and waiting for commands
 
 - <strong>Packed exefiles</strong>
   - There are packed files in the dist-folder using pyinstaller
