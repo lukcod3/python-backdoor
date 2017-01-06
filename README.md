@@ -46,6 +46,6 @@ screenshot                                      ---   Takes a screenshot
 
 sendKeys keystrokes                             ---   Exexutes the given keystrokes on the client
 
-activateApp                                     ---   Brings an openen application in the foreground
+activateApp                                     ---   Brings an opened application in the foreground
                                                       Useful for screenshots
 ```
