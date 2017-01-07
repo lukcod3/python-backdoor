@@ -56,4 +56,4 @@ activateApp                                     ---   Brings an opened applicati
 ### Interactive Shell
 ![Interactive Shell](https://raw.githubusercontent.com/lukcod3/python-backdoor/master/doc/screen03.jpg "Interactive Shell")
 ### Screenshot Command
-![Screenshot on the Client](https://raw.githubusercontent.com/lukcod3/python-backdoor/master/doc/screenShot.jpg "Screenshot on the client")
+![Screenshot on the Client](https://raw.githubusercontent.com/lukcod3/python-backdoor/master/doc/screenShot.png "Screenshot on the client")
