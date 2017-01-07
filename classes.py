@@ -75,17 +75,15 @@ class Client:
             return
         # sending the download command
         self.send('download ' + remote_filename)
-        fileSize = self.receive()
-        print "[*] File size: " + fileSize
         # printing download message
         print '[*] Downloading: ' + remote_filename + ' > ' + local_filename
         self.time.sleep(self.interval)
         # receive file data
         fileSize = self.receive()
+        roundedFileData = round(int(fileSize)/1000000, 2)
+        print '[*] File size: ' + str(roundedFileData) + 'MB = ' + str(fileSize) + 'B'
         fileData = self.receive()
         # print the file size
-        # roundedFileData = round(int(fileSize)/1000000, 2)
-        # print '[*] File size: ' + str(roundedFileData) + 'MB = ' + str(fileSize) + 'B'
         self.time.sleep(self.interval)
         # write data into file
         f.write(fileData)
@@ -99,22 +97,22 @@ class Client:
             remote_filename = local_filename
         try:
             f = open(local_filename, 'rb')
+            # start file transfer
+            self.send('upload ' + remote_filename)
+            print 'Uploading ' + remote_filename + ' > ' + local_filename
+            fileSize = self.os.path.getsize(remote_filename)
+            roundedFileData = round(fileSize / 1000000, 2)
+            print 'File size: ' + str(roundedFileData) + 'MB = ' + str(fileSize) + 'B'
+            while True:
+                fileData = f.read(1024)
+                if not fileData:
+                    break
+                self.send(fileData, '')
+            f.close()
+            self.send('')
+            self.time.sleep(self.interval)
         except IOError:
             print 'Error opening ' + local_filename + '!\n'
-        # start file transfer
-        self.send('upload ' + remote_filename)
-        print 'Uploading ' + remote_filename + ' > ' + local_filename
-        fileSize = self.os.path.getsize(remote_filename)
-        roundedFileData = round(fileSize / 1000000, 2)
-        print 'File size: ' + str(roundedFileData) + 'MB = ' + str(fileSize) + 'B'
-        while True:
-            fileData = f.read(1024)
-            if not fileData:
-                break
-            self.send(fileData, '')
-        f.close()
-        self.send('')
-        self.time.sleep(self.interval)
 
 
 # for client
@@ -143,6 +141,9 @@ class Server:
 
     def connect(self):
         self.server.connect((self.server_ip, self.port))
+
+    def close(self):
+        self.server.close()
 
     def pad(self, s):
         return s + (self.BLOCK_SIZE - len(s) % self.BLOCK_SIZE) * self.PADDING
@@ -189,6 +190,7 @@ class Server:
         if True:
             # get size of the file and send
             self.send(str(self.os.path.getsize(filename)))
+            self.time.sleep(2)
             # open file
             f = open(filename, 'rb')
             while True:
@@ -196,7 +198,7 @@ class Server:
                 fileData = f.readline(512)
                 if fileData == '':
                     # send the end
-                    self.send('EOFEOFEOFEOFEOFX')
+                    self.send('')
                     # close file
                     f.close()
                     break

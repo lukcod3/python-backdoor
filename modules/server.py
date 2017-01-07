@@ -2,12 +2,12 @@ import socket
 import platform
 import os
 
-def refresh(clients):
+def refresh(socks):
     clear()
     print '\nListening for Clients...\n'
-    if len(clients) > 0:
-        for i in range(len(clients)):
-            print '[' + str((i + 1)) + '] Client: ' + clients[i] + '\n'
+    if len(socks) > 0:
+        for i in range(len(socks)):
+            print '[' + str((i + 1)) + '] Client: ' + socks[i].getpeername()[0] + '\n'
     else:
         print '...\n'
     print '...\n'

